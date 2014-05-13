@@ -1,0 +1,6 @@
+./cryptopp_gyp -DTO=ios
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ../../external/cryptopp
+xcodebuild -project cryptopp.xcodeproj
+mkdir -p build/Default-iphoneos
+cp -af $DIR/build/Default-iphoneos/libcryptopp.a ./build/Default-iphoneos/
