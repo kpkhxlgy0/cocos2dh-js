@@ -1,6 +1,6 @@
 [submodule "external/msgpack-javascript"]
 	path = external/msgpack-javascript
-	url = https://github.com/msgpack/msgpack-javascript.git
+	url = git@github.com:msgpack/msgpack-javascript.git
 [submodule "external/pomelo-cocos2d-jsb"]
 	path = external/pomelo-cocos2d-jsb
-	url = https://github.com/NetEase/pomelo-cocos2d-jsb.git
+	url = git@github.com:NetEase/pomelo-cocos2d-jsb.git
