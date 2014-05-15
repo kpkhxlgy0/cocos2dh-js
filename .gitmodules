@@ -4,3 +4,6 @@
 [submodule "external/pomelo-cocos2d-jsb"]
 	path = external/pomelo-cocos2d-jsb
 	url = git@github.com:NetEase/pomelo-cocos2d-jsb.git
+[submodule "external/base64-js"]
+	path = external/base64-js
+	url = git@github.com:beatgammit/base64-js.git
