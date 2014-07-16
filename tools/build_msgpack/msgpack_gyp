@@ -1,0 +1,1 @@
+gyp --depth=. --generator-output=../../external/msgpack-c msgpack.gyp -Dlibrary=static_library -DTO=pc $@

@@ -1,5 +1,5 @@
-#ifndef __COCOS2DXHMARCROS_H__
-#define __COCOS2DXHMARCROS_H__
+#ifndef __COCOS2DHMARCROS_H__
+#define __COCOS2DHMARCROS_H__
 
 #define NS_CC_H_BEGIN                     namespace cocos2d { namespace h {
 #define NS_CC_H_END                       }}
@@ -42,4 +42,4 @@
         } \
     }
 
-#endif // __COCOS2DXHMARCROS_H__
+#endif // __COCOS2DHMARCROS_H__

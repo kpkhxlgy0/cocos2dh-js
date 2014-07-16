@@ -126,7 +126,7 @@ def main():
         tojs_root = '%s/tools/tojs' % project_root
         output_dir = '%s/js-bindings/bindings/auto' % project_root
 
-        cmd_args = {'cocos2d_h.ini' : ('cocos2d_h', 'jsb_cocos2d_h_auto'), \
+        cmd_args = {'cocos2dx_h.ini' : ('cocos2dx_h', 'jsb_cocos2dx_h_auto'), \
                     # 'cocos2dx_extension.ini' : ('cocos2dx_extension', 'jsb_cocos2dx_extension_auto'), \
                     # 'cocos2dx_builder.ini' : ('cocos2dx_builder', 'jsb_cocos2dx_builder_auto'), \
                     # 'cocos2dx_ui.ini' : ('cocos2dx_ui', 'jsb_cocos2dx_ui_auto'), \
@@ -137,15 +137,6 @@ def main():
         generator_py = '%s/generator.py' % cxx_generator_root
         for key in cmd_args.keys():
             args = cmd_args[key]
-            cfg = '%s/%s' % (tojs_root, key)
-            print 'Generating bindings for %s...' % (key[:-4])
-            command = '%s %s %s -s %s -t %s -o %s -n %s' % (python_bin, generator_py, cfg, args[0], target, output_dir, args[1])
-            _run_cmd(command)
-
-        output_dir = '%s/frameworks/custom/auto' % project_root
-        custom_cmd_args = {}
-        for key in custom_cmd_args.keys():
-            args = custom_cmd_args[key]
             cfg = '%s/%s' % (tojs_root, key)
             print 'Generating bindings for %s...' % (key[:-4])
             command = '%s %s %s -s %s -t %s -o %s -n %s' % (python_bin, generator_py, cfg, args[0], target, output_dir, args[1])

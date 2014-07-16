@@ -1,0 +1,10 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ../../external/msgpack-c
+./bootstrap
+./configure
+cd $DIR
+./msgpack_gyp -DTO=ios
+cd ../../external/msgpack-c
+xcodebuild -project msgpack.xcodeproj
+mkdir -p build/Default-iphoneos
+cp -af $DIR/build/Default-iphoneos/libmsgpack.a ./build/Default-iphoneos/

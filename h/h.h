@@ -1,7 +1,9 @@
 #ifndef __H_H__
 #define __H_H__
 
-#include "Cocos2dxhMacros.h"
+#include "Cocos2dhMacros.h"
+
+#include "assets-manager/HAssetsManager.h"
 
 //#include "helper/crypto/HCrypto.h"
 //

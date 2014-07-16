@@ -1,9 +1,12 @@
-[submodule "external/msgpack-javascript"]
-	path = external/msgpack-javascript
-	url = git@github.com:kpkhxlgy0/msgpack-javascript.git
 [submodule "external/pomelo-cocos2d-jsb"]
 	path = external/pomelo-cocos2d-jsb
 	url = git@github.com:NetEase/pomelo-cocos2d-jsb.git
 [submodule "external/base64-js"]
 	path = external/base64-js
 	url = git@github.com:beatgammit/base64-js.git
+[submodule "external/JavaScript-MD5"]
+	path = external/JavaScript-MD5
+	url = git@github.com:blueimp/JavaScript-MD5.git
+[submodule "external/msgpack-c"]
+	path = external/msgpack-c
+	url = git@bitbucket.org:kpkhxlgy0/msgpack-c.git
