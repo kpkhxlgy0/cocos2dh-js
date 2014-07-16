@@ -350,6 +350,9 @@ cch.getScale9SpriteBatchNode = function(sprite) {
     return null;
 };
 
+cc.BuilderReader.registerController = function(controllerName, controller){
+    cc.BuilderReader._controllerClassCache[controllerName] = controller;//cc.Class.extend(controller);
+};
 cc.BuilderReader.load = function(file, owner, parentSize)
 {
     // Load the node graph using the correct function
