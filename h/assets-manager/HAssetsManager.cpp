@@ -501,6 +501,7 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
 
 bool HAssetsManager::downLoad()
 {
+    createStoragePath();
     // Create a file to save package.
     const string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
     FILE *fp = fopen(outFileName.c_str(), "wb");
