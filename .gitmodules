@@ -7,6 +7,3 @@
 [submodule "external/JavaScript-MD5"]
 	path = external/JavaScript-MD5
 	url = git@github.com:blueimp/JavaScript-MD5.git
-[submodule "external/msgpack-c"]
-	path = external/msgpack-c
-	url = git@bitbucket.org:kpkhxlgy0/msgpack-c.git
