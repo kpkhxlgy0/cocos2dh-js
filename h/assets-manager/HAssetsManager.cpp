@@ -747,19 +747,18 @@ std::vector<std::string> AssetsManagerExt::readdir(const std::string &path, bool
     ent = ::readdir(dir);
     while(ent) {
         if(ent->d_type & DT_DIR) {
-            if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) {
+            if(!recursive || strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) {
                 ent = ::readdir(dir);
                 continue;
             }
             std::string childPath = path + "/" + ent->d_name;
-            if (isDirectory(childPath)) {
-                std::vector<std::string> sub = readdir(childPath, recursive);
-                for (const auto &v : sub) {
-                    ret.push_back(v);
-                }
-            } else {
-                ret.push_back(childPath);
+            std::vector<std::string> sub = readdir(childPath, recursive);
+            for (const auto &v : sub) {
+                ret.push_back(v);
             }
+        } else {
+            std::string childPath = path + "/" + ent->d_name;
+            ret.push_back(childPath);
         }
         ent = ::readdir(dir);
     }
