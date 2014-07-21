@@ -123,47 +123,25 @@ cch.toF = function(value) {
     return parseFloat(value);
 };
 
-cch._debug = false;
-cch.setDebug = function(debug) {
-    cch._debug = debug;
-};
-cch.isDebug = function() {
-    return cch._debug;
-};
-
-cch._logToFile = false;
-cch.setLogToFile = function(logToFile) {
-    cch._logToFile = logToFile;
-};
-cch.isLogToFile = function() {
-    return cch._logToFile;
-};
-
-cch.log = function(msg, noStack) {
-    if (!cch._debug) {
-        return;
-    }
-    noStack = noStack || false;
+cch.log = function(msg, logFile) {
     msg = cch.toA(msg);
     var str = "";
-    if (!noStack) {
-        var err = new Error(msg);
-        var stackArr = err.stack.split("\n");
-        stackArr.shift();
-        var stack = stackArr.join("\n");
-        str = "-----STACK-----:";
-        str += "\n" + stack;
-        str += "----MESSAGE----:\n";
-    }
+    var err = new Error(msg);
+    var stackArr = err.stack.split("\n");
+    stackArr.shift();
+    var stack = stackArr.join("\n");
+    str = "-----STACK-----:";
+    str += "\n" + stack;
+    str += "\n----MESSAGE----:\n";
     str += msg;
     cc.log(str);
-    if (cch._logToFile) {
-        cch.HLogFile.logFile(str);
+    if (logFile) {
+        cch.logFile(str);
     }
 };
 
 cch.assert = function(condition, msg) {
-    if (!cch._debug || condition) {
+    if (condition) {
         return;
     }
     msg = cch.toA(msg);
@@ -173,11 +151,7 @@ cch.assert = function(condition, msg) {
     var stack = stackArr.join("\n");
     var str = "-----STACK-----:";
     str += "\n" + stack;
-    str += "----MESSAGE----:\n" + msg;
     cc.log(str);
-    if (cch._logToFile) {
-        cch.HLogFile.logFile(str);
-    }
     throw err;
 };
 

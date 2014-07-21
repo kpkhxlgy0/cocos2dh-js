@@ -4,5 +4,6 @@
 #include "jsapi.h"
 
 void register_all_cocos2dh_manual(JSContext *cx, JSObject *global);
+void enableLogFile(const char *fileName);
 
 #endif // __JSB_COCOS2DH_MANUAL_H__

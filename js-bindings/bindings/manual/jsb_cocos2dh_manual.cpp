@@ -6,7 +6,7 @@
  */
 
 #include "jsb_cocos2dh_manual.h"
-#include "ScriptingCore.h"
+#include "cocos2d_specifics.hpp"
 #include "cocos2d.h"
 
 #include "msgpack.hpp"
@@ -14,8 +14,63 @@
 
 USING_NS_CC;
 
-#pragma mark - modu app
+static std::string s_fileName;
+static char *s_js_log_buf = nullptr;
+static void logFile(const char *str) {
+    if (s_fileName.empty()) {
+        return;
+    }
+    std::string filePath = FileUtils::getInstance()->getWritablePath() + s_fileName;
+    FILE *fp = fopen(filePath.c_str(), "ab");
+    fwrite(str, strlen(str), 1, fp);
+    
+//    auto global = ScriptingCore::getInstance()->getGlobalObject();
+//    const char *str = "(function() {\
+//    var err = new Error();\
+//    var stackArr = err.stack.split(\"\\n\");\
+//    stackArr.shift();\
+//    var stack = stackArr.join(\"\\n\");\
+//    var str = \"-----STACK-----:\";\
+//    str += \"\\n\" + stack + \"\\n\";\
+//    return str;\
+//    })()";
+//    std::string stack;
+//    jsval_to_std_string(cx, anonEvaluate(cx, global, str), &stack);
+//    CCLOG("JS: %s", stack.c_str());
+//    fwrite(stack.data(), stack.length(), 1, fp);
+    
+    time_t t = time(0);
+    struct tm *tp = localtime(&t);
+    char a[256] = {0};
+    sprintf(a, "\n----- %04d/%02d/%02d %02d:%02d:%02d -----\n\n",
+            tp->tm_year + 1900,
+            tp->tm_mon + 1,
+            tp->tm_mday,
+            tp->tm_hour,
+            tp->tm_min,
+            tp->tm_sec);
+    fwrite(a, strlen(a), 1, fp);
+    fclose(fp);
+}
+static void reportError(JSContext *cx, const char *message, JSErrorReport *report) {
+    if (s_js_log_buf == NULL)
+    {
+        s_js_log_buf = (char *)calloc(sizeof(char), MAX_LOG_LENGTH+1);
+        s_js_log_buf[MAX_LOG_LENGTH] = '\0';
+    } else {
+        memset(s_js_log_buf, 0, MAX_LOG_LENGTH+1);
+    }
+    int len = sprintf(s_js_log_buf, "%s:%u:%s\n",
+                      report->filename ? report->filename : "<no filename=\"filename\">",
+                      (unsigned int) report->lineno,
+                      message);
+    if (len > 0) {
+        CCLOG("JS: %s", s_js_log_buf);
+        logFile(s_js_log_buf);
+    }
+};
 
+#pragma mark - modu app
 void msgpack2js(std::string &ret, const msgpack::object o, bool asKey = false) {
     if (asKey && o.type != msgpack::type::RAW) {
         ret += "\"";
@@ -153,6 +208,9 @@ static bool js_cch_restartVM(JSContext *cx, uint32_t argc, jsval *vp)
     scheduler->schedule([=](float){
         scheduler->unscheduleAllForTarget(node);
         ScriptingCore::getInstance()->reset();
+        if (!s_fileName.empty()) {
+            enableLogFile(s_fileName.c_str());
+        }
         ScriptingCore::getInstance()->runScript("main.js");
     }, node, 0, false, "restartVM");
     return true;
@@ -220,6 +278,21 @@ static bool js_cch_jsonToMsgpack(JSContext *cx, uint32_t argc, jsval *vp) {
     return true;
 }
 
+static bool js_cch_logFile(JSContext *cx, uint32_t argc, jsval *vp) {
+    JSB_PRECONDITION2( argc == 1, cx, false, "Invalid number of arguments" );
+	jsval *argvp = JS_ARGV(cx,vp);
+	bool ok = true;
+    std::string arg0;
+    
+    ok &= jsval_to_std_string(cx, argvp[0], &arg0);
+	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
+    
+    logFile(arg0.c_str());
+    
+    JS_SET_RVAL(cx, vp, JSVAL_NULL);
+    return true;
+}
+
 void register_all_cocos2dh_manual(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
@@ -237,4 +310,11 @@ void register_all_cocos2dh_manual(JSContext* cx, JSObject* obj) {
 	JS_DefineFunction(cx, ns, "restartVM", js_cch_restartVM, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     JS_DefineFunction(cx, ns, "msgpackToJson", js_cch_msgpackToJson, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     JS_DefineFunction(cx, ns, "jsonToMsgpack", js_cch_jsonToMsgpack, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, ns, "logFile", js_cch_logFile, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+}
+
+#pragma mark - log file
+void enableLogFile(const char *fileName) {
+    s_fileName = fileName;
+    JS_SetErrorReporter(ScriptingCore::getInstance()->getGlobalContext(), reportError);
 }
