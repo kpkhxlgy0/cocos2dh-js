@@ -672,6 +672,9 @@ bool AssetsManagerExt::createDirectory(const std::string &path) {
     return cocos2d::extension::AssetsManager::createDirectory(path);
 }
 bool AssetsManagerExt::removeDirectory(const std::string &path) {
+    if (path.size() > 0 && path[path.size() - 1] != '/') {
+        return cocos2d::extension::AssetsManager::removeDirectory(path + "/");
+    }
     return cocos2d::extension::AssetsManager::removeDirectory(path);
 }
 bool AssetsManagerExt::removeFile(const std::string &path) {
