@@ -181,7 +181,9 @@ bool HAssetsManager::checkUpdate()
         });
         CCLOG("there is not new version");
         // Set resource search path.
-        setSearchPath();
+        // XXX: commented by hxl
+        // setSearchPath();
+        
         return false;
     }
     
@@ -655,6 +657,12 @@ void HAssetsManager::destroyStoragePath()
     
     // Remove downloaded files
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+    // XXX: by hxl
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS && !TARGET_IPHONE_SIMULATOR
+    std::remove(_storagePath.c_str());
+    return;
+#endif
+    
     string command = "rm -r ";
     // Path may include space.
     command += "\"" + _storagePath + "\"";
@@ -754,13 +762,21 @@ std::vector<std::string> AssetsManagerExt::readdir(const std::string &path, bool
                 ent = ::readdir(dir);
                 continue;
             }
-            std::string childPath = path + "/" + ent->d_name;
+            std::string childPath = path;
+            if (childPath[childPath.length() - 1] != '/') {
+                childPath += "/";
+            }
+            childPath += ent->d_name;
             std::vector<std::string> sub = readdir(childPath, recursive);
             for (const auto &v : sub) {
                 ret.push_back(v);
             }
         } else {
-            std::string childPath = path + "/" + ent->d_name;
+            std::string childPath = path;
+            if (childPath[childPath.length() - 1] != '/') {
+                childPath += "/";
+            }
+            childPath += ent->d_name;
             ret.push_back(childPath);
         }
         ent = ::readdir(dir);
