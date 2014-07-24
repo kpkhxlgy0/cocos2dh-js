@@ -8,6 +8,7 @@
 #include "jsb_cocos2dh_manual.h"
 #include "cocos2d_specifics.hpp"
 #include "cocos2d.h"
+#include "network/HttpClient.h"
 
 #include "msgpack.hpp"
 #include "json/document.h"
@@ -293,6 +294,28 @@ static bool js_cch_logFile(JSContext *cx, uint32_t argc, jsval *vp) {
     return true;
 }
 
+static bool js_cch_setTimeoutForConnect(JSContext *cx, uint32_t argc, jsval *vp) {
+    JSB_PRECONDITION2( argc == 1, cx, false, "Invalid number of arguments" );
+	jsval *argvp = JS_ARGV(cx,vp);
+    int arg0 = JSVAL_TO_INT(argvp[0]);
+    
+    cocos2d::network::HttpClient::getInstance()->setTimeoutForConnect(arg0);
+    
+    JS_SET_RVAL(cx, vp, JSVAL_NULL);
+    return true;
+}
+
+static bool js_cch_setTimeoutForRead(JSContext *cx, uint32_t argc, jsval *vp) {
+    JSB_PRECONDITION2( argc == 1, cx, false, "Invalid number of arguments" );
+	jsval *argvp = JS_ARGV(cx,vp);
+    int arg0 = JSVAL_TO_INT(argvp[0]);
+    
+    cocos2d::network::HttpClient::getInstance()->setTimeoutForRead(arg0);
+    
+    JS_SET_RVAL(cx, vp, JSVAL_NULL);
+    return true;
+}
+
 void register_all_cocos2dh_manual(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
@@ -311,6 +334,8 @@ void register_all_cocos2dh_manual(JSContext* cx, JSObject* obj) {
     JS_DefineFunction(cx, ns, "msgpackToJson", js_cch_msgpackToJson, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     JS_DefineFunction(cx, ns, "jsonToMsgpack", js_cch_jsonToMsgpack, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     JS_DefineFunction(cx, ns, "logFile", js_cch_logFile, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, ns, "setTimeoutForConnect", js_cch_setTimeoutForConnect, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, ns, "setTimeoutForRead", js_cch_setTimeoutForRead, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 }
 
 #pragma mark - log file
