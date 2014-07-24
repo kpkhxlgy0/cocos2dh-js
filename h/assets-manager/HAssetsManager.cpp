@@ -181,8 +181,7 @@ bool HAssetsManager::checkUpdate()
         });
         CCLOG("there is not new version");
         // Set resource search path.
-        // XXX: commented by hxl
-        // setSearchPath();
+        setSearchPath();
         
         return false;
     }
@@ -468,10 +467,11 @@ bool HAssetsManager::createDirectory(const char *path)
 
 void HAssetsManager::setSearchPath()
 {
-    vector<string> searchPaths = FileUtils::getInstance()->getSearchPaths();
-    vector<string>::iterator iter = searchPaths.begin();
-    searchPaths.insert(iter, _storagePath);
-    FileUtils::getInstance()->setSearchPaths(searchPaths);
+    // XXX: commented by hxl
+//    vector<string> searchPaths = FileUtils::getInstance()->getSearchPaths();
+//    vector<string>::iterator iter = searchPaths.begin();
+//    searchPaths.insert(iter, _storagePath);
+//    FileUtils::getInstance()->setSearchPaths(searchPaths);
 }
 
 static size_t downLoadPackage(void *ptr, size_t size, size_t nmemb, void *userdata)
