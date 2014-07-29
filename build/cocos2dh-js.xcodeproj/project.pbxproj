@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91D43DE19873373006A3ABA /* JavaScriptObjCBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = C91D43DA19873373006A3ABA /* JavaScriptObjCBridge.mm */; };
 		C93C8D771974D19900824C1A /* jsb_cocos2d_h_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C93C8D751974D19900824C1A /* jsb_cocos2d_h_auto.cpp */; };
 		C9A7347219752C5B00094C8A /* libmsgpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A7347119752C5B00094C8A /* libmsgpack.a */; };
 		C9B599B518DD2B40008F1E33 /* jsb_cocos2dh_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B599A818DD2B40008F1E33 /* jsb_cocos2dh_manual.cpp */; };
@@ -28,6 +29,8 @@
 /* Begin PBXFileReference section */
 		1A0C0A7A1777F79700838530 /* libcocos2dh-js iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2dh-js iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A0C0A7D1777F79700838530 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C91D43D919873373006A3ABA /* JavaScriptObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JavaScriptObjCBridge.h; sourceTree = "<group>"; };
+		C91D43DA19873373006A3ABA /* JavaScriptObjCBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JavaScriptObjCBridge.mm; sourceTree = "<group>"; };
 		C93C8D751974D19900824C1A /* jsb_cocos2d_h_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_cocos2d_h_auto.cpp; sourceTree = "<group>"; };
 		C93C8D761974D19900824C1A /* jsb_cocos2d_h_auto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2d_h_auto.hpp; sourceTree = "<group>"; };
 		C96669C0192460C300AF54A5 /* Cocos2dhMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cocos2dhMacros.h; path = ../h/Cocos2dhMacros.h; sourceTree = "<group>"; };
@@ -78,6 +81,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C91D43CC19873373006A3ABA /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				C91D43D819873373006A3ABA /* ios */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		C91D43D819873373006A3ABA /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C91D43D919873373006A3ABA /* JavaScriptObjCBridge.h */,
+				C91D43DA19873373006A3ABA /* JavaScriptObjCBridge.mm */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		C96669B61924605E00AF54A5 /* h */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +146,7 @@
 		C9B599A518DD2B40008F1E33 /* manual */ = {
 			isa = PBXGroup;
 			children = (
+				C91D43CC19873373006A3ABA /* platform */,
 				C9B599A818DD2B40008F1E33 /* jsb_cocos2dh_manual.cpp */,
 				C9B599A918DD2B40008F1E33 /* jsb_cocos2dh_manual.h */,
 			);
@@ -194,6 +215,7 @@
 			files = (
 				C93C8D771974D19900824C1A /* jsb_cocos2d_h_auto.cpp in Sources */,
 				C9BBAFAA1974C047005A33FC /* HAssetsManager.cpp in Sources */,
+				C91D43DE19873373006A3ABA /* JavaScriptObjCBridge.mm in Sources */,
 				C9B599B518DD2B40008F1E33 /* jsb_cocos2dh_manual.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
