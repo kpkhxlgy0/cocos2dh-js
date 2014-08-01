@@ -655,24 +655,20 @@ void HAssetsManager::destroyStoragePath()
     // Delete recorded version codes.
     deleteVersion();
     
-    // Remove downloaded files
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
     // XXX: by hxl
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS && !TARGET_IPHONE_SIMULATOR
-    std::remove(_storagePath.c_str());
-    return;
-#endif
-    
-    string command = "rm -r ";
-    // Path may include space.
-    command += "\"" + _storagePath + "\"";
-    system(command.c_str());    
-#else
-    string command = "rd /s /q ";
-    // Path may include space.
-    command += "\"" + _storagePath + "\"";
-    system(command.c_str());
-#endif
+    AssetsManagerExt::removeDirectory(_storagePath);
+//    // Remove downloaded files
+//#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+//    string command = "rm -r ";
+//    // Path may include space.
+//    command += "\"" + _storagePath + "\"";
+//    system(command.c_str());    
+//#else
+//    string command = "rd /s /q ";
+//    // Path may include space.
+//    command += "\"" + _storagePath + "\"";
+//    system(command.c_str());
+//#endif
 }
 
 #pragma mark - AssetsManagerExt
