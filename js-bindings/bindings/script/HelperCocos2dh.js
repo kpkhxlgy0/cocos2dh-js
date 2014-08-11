@@ -140,7 +140,7 @@ cch.log = function(msg, logFile) {
     }
 };
 
-cch.assert = function(condition, msg) {
+cch.assert = function(condition, msg, logFile) {
     if (condition) {
         return;
     }
@@ -152,6 +152,9 @@ cch.assert = function(condition, msg) {
     var str = "-----STACK-----:";
     str += "\n" + stack;
     cc.log(str);
+    if (logFile) {
+        cch.logFile(str);
+    }
     throw err;
 };
 
