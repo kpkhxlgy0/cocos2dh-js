@@ -6,7 +6,7 @@ cd $DIR
 ./msgpack_gyp -DTO=ios
 cd ../../external/msgpack-c
 xcodebuild -project msgpack.xcodeproj
-xcodebuild -project msgpack.xcodeproj -sdk iphonesimulator7.1 -arch i386
+xcodebuild -project msgpack.xcodeproj -sdk iphonesimulator7.1 ARCHS="i386 x86_64"
 mkdir -p build/Default-iphoneos
 mkdir -p build/Default-iphonesimulator
 cp -af $DIR/build/Default-iphoneos/libmsgpack.a ./build/Default-iphoneos/
