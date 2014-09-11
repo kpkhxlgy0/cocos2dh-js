@@ -749,7 +749,7 @@ std::vector<std::string> AssetsManagerExt::readdir(const std::string &path, bool
     DIR *dir;
     struct dirent *ent;
     
-    dir = opendir(path.c_str());
+    dir = ::opendir(path.c_str());
     
     ent = ::readdir(dir);
     while(ent) {
@@ -777,6 +777,7 @@ std::vector<std::string> AssetsManagerExt::readdir(const std::string &path, bool
         }
         ent = ::readdir(dir);
     }
+    ::closedir(dir);
     return ret;
 }
 
