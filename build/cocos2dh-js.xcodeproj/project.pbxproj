@@ -189,7 +189,7 @@
 		1A0C0A721777F79700838530 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = 1A0C0A751777F79700838530 /* Build configuration list for PBXProject "cocos2dh-js" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -330,7 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				DSTROOT = /tmp/cocos2dxh.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -361,7 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				DSTROOT = /tmp/cocos2dxh.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
